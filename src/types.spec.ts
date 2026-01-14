@@ -10,6 +10,6 @@ describe('the Student type', () => {
   });
   it('should allow extraction of name', () => {
     expect(alvin.studentName).toEqual('Alvin');
-    expect(bryn.studentName).toEqual('Jazzhands'); // will fail
+    expect(bryn.studentName).toEqual('Bronwyn'); // will fail
   });
 });
