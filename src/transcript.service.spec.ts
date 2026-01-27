@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { TranscriptDB, type TranscriptService } from './transcript.service.ts';
+import type { ITranscript } from './ITranscript.ts';
+import { TranscriptDB } from './transcript.service.ts';
 
-let db: TranscriptService;
-beforeEach(() => {
+let db: TranscriptDB;
+let testCounter = 0;
+beforeEach(async () => {
   db = new TranscriptDB();
 });
 
@@ -31,15 +33,18 @@ describe('addStudent', () => {
 });
 
 describe('getTranscript', () => {
-  it('given the ID of a student, should return the student’s transcript', () => {
+  it('given the ID of a student, should return the student\'s transcript', async () => {
     const id1 = db.addStudent('blair');
-    expect(db.getTranscript(id1)).not.toBeNull();
+    expect(id1).toBeDefined();
+    expect(db.nameToIDs('blair')).toContain(id1);
+    const transcript = await db.getTranscript(id1);
+    expect(transcript).not.toBeNull();
   });
 
-  it('given the ID that is not the ID of any student, should throw an error', () => {
+  it('given the ID that is not the ID of any student, should throw an error', async () => {
     // in an empty database, all IDs are bad :)
     // Note: the expression you expect to throw
     // must be wrapped in a (() => ...)
-    expect(() => db.getTranscript(1)).toThrowError();
+    await expect(db.getTranscript(1)).rejects.toThrowError();
   });
 });

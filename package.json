@@ -12,6 +12,9 @@
     "vitest": "vitest"
   },
   "author": "Mitch Wand and Rob Simmons",
+  "dependencies": {
+    "keyv": "^4.5.4"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@vitest/coverage-istanbul": "^4.0.16",
